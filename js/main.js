@@ -1,6 +1,6 @@
-const local = window.document.querySelector('#pricipal');
+//const local = window.document.querySelector('#pricipal');
 const tudo = window.document.querySelector('#bd'),indicador = window.document.querySelector("#pd");
-const placar = window.document.querySelector('#placar'), area = [window.document.querySelector('#one'),window.document.querySelector('#two'),window.document.querySelector('#three'),window.document.querySelector('#four')];
+const placar = window.document.querySelector('#painel'), area = [window.document.querySelector('#one'),window.document.querySelector('#two'),window.document.querySelector('#three'),window.document.querySelector('#four')];
 
 var pontos = 0;
 var controle_animation, velocidade = 2000,jogo = false;
@@ -11,7 +11,7 @@ function pre_play () {
 let dv_play = window.document.createElement('img');
 dv_play.setAttribute('class','pre_start');
 dv_play.setAttribute("src","./imgs/icon.png")
-local.setAttribute('onclick','start()');
+dv_play.setAttribute('onclick','start()');
 placar.appendChild(dv_play);
 }
 pre_play();
@@ -28,7 +28,6 @@ function gerador (q) {
 var feito = 0;
 
 function start () {
-    local.removeAttribute('onclick');
     placar.innerHTML= '';
     let padrao = gerador(6);
     passos = padrao.length;
@@ -41,30 +40,38 @@ function start () {
     console.log(`${padrao} / ${padrao[feito]}`);
     switch (padrao[feito]) {
         case 1: 
-        local.style.border="100px solid white";
-            local.style.borderTop="100px solid green";
+        area[1].style.backgroundColor="white";
+        area[2].style.backgroundColor="white";
+        area[3].style.backgroundColor="white";
+
+            area[0].style.backgroundColor="green";
             break
         case 2 :
-            local.style.border="100px solid white";
-            local.style.borderRight="100px solid red";
+            area[0].style.backgroundColor="white";
+            area[2].style.backgroundColor="white";
+            area[3].style.backgroundColor="white";
+
+            area[1].style.backgroundColor="red";
             break
         case 3 :
-            local.style.border="100px solid white";
-            local.style.borderBottom="100px solid yellow";
+            area[0].style.backgroundColor="white";
+            area[1].style.backgroundColor="white";
+            area[3].style.backgroundColor="white";
+
+            area[2].style.backgroundColor="yellow";
             break
         case 4 :
-            local.style.border="100px solid white";
-            local.style.borderLeft="100px solid blue";
-            break
-        case 5:
+            area[0].style.backgroundColor="white";
+            area[1].style.backgroundColor="white";
+            area[2].style.backgroundColor="white";
 
+            area[3].style.backgroundColor="blue";
             break
-            //finalizado
     }
     ++feito;
     console.log(feito);
 }}, velocidade);
-    console.log('chegou aqui');
+    //console.log('chegou aqui');
 }
 var padrão_ativo;
 var num_pass;

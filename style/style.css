@@ -3,10 +3,20 @@
     margin: 0px;
 }
 .alinhar{
-    position:relative;
-    width: max-content;
-    height: 100%;
-    margin: auto;
+width: 100vw;
+height: 100vh;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+.vertcal{
+    display: grid;
+    grid-template-areas: 'one two' 'three four';
+    grid-gap: 10px;
+    border: 1px solid black;
+    border-radius: 100%;
+    width: 700px;
+    height: 700px;
 }
 #pricipal{
     margin-top: 10vh;
@@ -29,28 +39,15 @@
 #placar{
     height: 0px;
 }
-#one{
-    width: 300px;
-    height: 300px;
-    margin-top: -600px;
-    z-index: 1;
+/*#one{
+    border-radius: 100%
 }
 #two{
-    width: 300px;
-    height: 300px;
-    margin-top: -300px;
-    margin-left: 300px;
-    z-index: 1;
+    border-radius: 100%
 }
 #three{
-    width: 300px;
-    height: 300px;
-    z-index: 1;
+   border-radius: 100%
 }
 #four{
-    width: 300px;
-    height: 300px;
-    margin-top:  -300px;
-    margin-left: 300px;
-    z-index: 1;
-}
+    border-radius: 100%
+}*/
