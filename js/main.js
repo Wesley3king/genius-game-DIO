@@ -1,20 +1,22 @@
 //const local = window.document.querySelector('#pricipal');
-const tudo = window.document.querySelector('#bd'),indicador = window.document.querySelector("#pd");
+const tudo = window.document.querySelector('#bd'),indicador = window.document.querySelector("#pd"),hearts = window.document.querySelector('.heart'), points = window.document.querySelector('.pontuaco'),export_pass = window.document.querySelector(".pass");
 const placar = window.document.querySelector('#painel'), area = [window.document.querySelector('#one'),window.document.querySelector('#two'),window.document.querySelector('#three'),window.document.querySelector('#four')];
 
-var pontos = 0;
+var pontos = 0,vidas;
 var controle_animation, velocidade = 2000,jogo = false;
 var valor, passos = 0;
 
 //inicio
 function pre_play () {
-let dv_play = window.document.createElement('img');
-dv_play.setAttribute('class','pre_start');
-dv_play.setAttribute("src","./imgs/icon.png")
-dv_play.setAttribute('onclick','start()');
-placar.appendChild(dv_play);
+    vidas = 5;
+    hearts.innerText  = `hearts : ${vidas}`;
+    let dv_play = window.document.createElement('img');
+    dv_play.setAttribute('class','pre_start');
+    dv_play.setAttribute("src","./imgs/icon.png")
+    dv_play.setAttribute('onclick','start()');
+    placar.appendChild(dv_play);
 }
-pre_play();
+ pre_play();
 function gerador (q) {
     let response = [];
     for (let i = 0; i  < q; ++i) {
@@ -28,15 +30,34 @@ function gerador (q) {
 var feito = 0;
 
 function start () {
-    placar.innerHTML= '';
+    window.document.querySelector(".pre_start").style.display="none";
     let padrao = gerador(6);
     passos = padrao.length;
     //let feito = 0;
-    placar.innerHTML = `passos :<br>${passos}`;
+    export_pass.innerHTML = `passos :<br>${passos}`;
     controle_animation = setInterval(()=>{if (feito === padrao.length) {
         clearInterval(controle_animation);
+        area[0].style.backgroundColor="green";
+            area[1].style.backgroundColor="red";
+            area[2].style.backgroundColor="yellow";
+            area[3].style.backgroundColor="blue";
         leitor(padrao);
     }else{
+        switch (padrao[feito]) {
+            case 1:
+                area[0].style.animation="ending 0.5s linear 1";
+                break;
+            case 2:
+                area[1].style.animation="ending 0.5s linear 1";
+                break
+            case 3:
+                area[2].style.animation="ending 0.5s linear 1";
+                break
+            case 4:
+                area[3].style.animation="ending 0.5s linear 1";
+                break
+        }
+        setTimeout(()=>{
     console.log(`${padrao} / ${padrao[feito]}`);
     switch (padrao[feito]) {
         case 1: 
@@ -44,13 +65,15 @@ function start () {
         area[2].style.backgroundColor="white";
         area[3].style.backgroundColor="white";
 
+            area[0].style.animation="none";
             area[0].style.backgroundColor="green";
             break
         case 2 :
             area[0].style.backgroundColor="white";
             area[2].style.backgroundColor="white";
             area[3].style.backgroundColor="white";
-
+            
+            area[1].style.animation="none";
             area[1].style.backgroundColor="red";
             break
         case 3 :
@@ -58,6 +81,7 @@ function start () {
             area[1].style.backgroundColor="white";
             area[3].style.backgroundColor="white";
 
+            area[2].style.animation="none";
             area[2].style.backgroundColor="yellow";
             break
         case 4 :
@@ -65,18 +89,18 @@ function start () {
             area[1].style.backgroundColor="white";
             area[2].style.backgroundColor="white";
 
+            area[3].style.animation="none";
             area[3].style.backgroundColor="blue";
             break
     }
     ++feito;
     console.log(feito);
-}}, velocidade);
-    //console.log('chegou aqui');
+}, 250)}}, velocidade);
+    console.log('chegou aqui');
 }
 var padrão_ativo;
 var num_pass;
 var passo_avaliado;
-//var your_p = [];
 function leitor (padrao=undefined, autorizção = null) {
     if (padrao) {
         jogo = true;
@@ -92,15 +116,24 @@ function leitor (padrao=undefined, autorizção = null) {
            ++num_pass;
            console.log(`num pass : ${num_pass}`);
            passo_avaliado = padrão_ativo[num_pass];
-           placar.innerText = `${num_pass}/${padrão_ativo.length}`;
+           export_pass.innerText = `${num_pass}/${padrão_ativo.length}`;
            if (passo_avaliado === undefined) {
                ++pontos;
                console.log('-------VITÓRIA-----'+pontos);
+               area.forEach(item => item.style.backgroundColor=`gold`);
                jogo = false;
                start();
            }
        }else{
-        console.log('erro!')
+        console.log('erro!');
+        --vidas;
+        hearts.innerText  = `hearts : ${vidas}`;
+            if (vidas === 0) {
+                area.forEach(item => item.style.backgroundColor=`orange`);
+                jogo = false;
+
+            }
+
        }
     }
 }
@@ -108,11 +141,11 @@ function leitor (padrao=undefined, autorizção = null) {
 function sensor (tp) {
     switch (tp) {
         case 1 : 
-            valor = 4;
+            valor = 1;
             console.log('click top');
             break
         case 2 :
-            valor = 1;
+            valor = 2;
             console.log('click bottom');
             break
         case 3 :
@@ -120,7 +153,7 @@ function sensor (tp) {
             console.log('click left');
             break
         case 4 :
-            valor = 2;
+            valor = 4;
             console.log('click rigth');
             break
     }

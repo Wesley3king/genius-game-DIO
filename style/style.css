@@ -4,16 +4,15 @@
 }
 .alinhar{
 width: 100vw;
-height: 100vh;
+height: 90vh;
 display: flex;
 justify-content: center;
 align-items: center;
 }
 .vertcal{
     display: grid;
-    grid-template-areas: 'one two' 'three four';
+    grid-template-areas: 'one two' 'four three';
     grid-gap: 10px;
-    border: 1px solid black;
     border-radius: 100%;
     width: 700px;
     height: 700px;
@@ -30,24 +29,47 @@ align-items: center;
 }
 /*classes start*/
 .pre_start{
-    width: 100px;
-    height: 100px;
-    margin-bottom: -430px;
-    margin-left: 50%;
-    transform: translate(-50%);
+    width: 70px;
+    height: 70px;
 }
 #placar{
     height: 0px;
 }
-/*#one{
-    border-radius: 100%
+#one{
+    grid-area: one;
+    border-top-left-radius: 100%;
+    background-color: green;
 }
 #two{
-    border-radius: 100%
+    grid-area: two;
+    border-top-right-radius: 100%;
+    background-color: red;
 }
 #three{
-   border-radius: 100%
+grid-area: three;
+   border-bottom-right-radius: 100%;
+   background-color: yellow;
 }
 #four{
-    border-radius: 100%
-}*/
+    grid-area: four;
+    border-bottom-left-radius: 100%;
+    background-color: blue;
+}
+#painel{
+    width: 90%;
+    height: 100px;
+    display: block;
+    margin: auto;
+    text-align: center;
+}
+@keyframes ending {
+    0%{
+        opacity: 1;
+    }
+    100%{
+        opacity: 0;
+    }
+}
+.itens{
+    display: inline-block;
+}
