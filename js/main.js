@@ -1,5 +1,5 @@
 //const local = window.document.querySelector('#pricipal');
-const tudo = window.document.querySelector('#bd'),indicador = window.document.querySelector("#pd"),hearts = window.document.querySelector('.heart'), points = window.document.querySelector('.pontuaco'),export_pass = window.document.querySelector(".pass");
+const tudo = window.document.querySelector('#bd'),indicador = window.document.querySelector("#pd"),hearts = window.document.querySelector('.heart'), points = window.document.querySelector('.pontuaco'),export_pass = window.document.querySelector(".pass"), resultado =window.document.querySelector('.resultado');
 const placar = window.document.querySelector('#painel'), area = [window.document.querySelector('#one'),window.document.querySelector('#two'),window.document.querySelector('#three'),window.document.querySelector('#four')];
 
 var pontos = 0,vidas;
@@ -15,6 +15,7 @@ function pre_play () {
     dv_play.setAttribute("src","./imgs/icon.png")
     dv_play.setAttribute('onclick','start()');
     placar.appendChild(dv_play);
+    indicador.innerText = `pontos : ${pontos}`;
 }
  pre_play();
 function gerador (q) {
@@ -27,14 +28,16 @@ function gerador (q) {
     return response;
 }
 //funcao de teste
-var feito = 0;
+//var feito = 0;
 
 function start () {
     window.document.querySelector(".pre_start").style.display="none";
-    let padrao = gerador(6);
+    resultado.style.display="none";
+    let level = pontos + 1;
+    let padrao = gerador(level);
     passos = padrao.length;
-    //let feito = 0;
-    export_pass.innerHTML = `passos :<br>${passos}`;
+    let feito = 0;
+    export_pass.innerHTML = `passos : ${passos}`;
     controle_animation = setInterval(()=>{if (feito === padrao.length) {
         clearInterval(controle_animation);
         area[0].style.backgroundColor="green";
@@ -112,24 +115,35 @@ function leitor (padrao=undefined, autorizção = null) {
     if (jogo && autorizção === "auto"){
         console.log(`passo_avaliado : ${passo_avaliado} / valor : ${valor}`);
        if (valor === passo_avaliado) {
-           indicador.innerText = `adicionado : ${valor}`;
            ++num_pass;
-           console.log(`num pass : ${num_pass}`);
+           //console.log(`num pass : ${num_pass}`);
            passo_avaliado = padrão_ativo[num_pass];
-           export_pass.innerText = `${num_pass}/${padrão_ativo.length}`;
+           export_pass.innerText = `acertos : ${num_pass}/${padrão_ativo.length}`;
            if (passo_avaliado === undefined) {
                ++pontos;
+               indicador.innerText = `pontos : ${pontos}`;
                console.log('-------VITÓRIA-----'+pontos);
+               resultado.style.display="block";
+               resultado.innerText = `VITÓRIA`;
+               resultado.style.backgroundColor=`lime`;
                area.forEach(item => item.style.backgroundColor=`gold`);
                jogo = false;
-               start();
+               //next level
+               window.document.querySelector(".pre_start").style.display="block";
+               //start();
            }
        }else{
         console.log('erro!');
         --vidas;
         hearts.innerText  = `hearts : ${vidas}`;
+        hearts.style.animation="not 1s linear 1";
+        setTimeout(()=>{hearts.style.animation="none";},1100);
             if (vidas === 0) {
                 area.forEach(item => item.style.backgroundColor=`orange`);
+                hearts.innerText  = `you lose!`;
+                resultado.style.display="block";
+                resultado.innerText = `DERROTA`;
+                resultado.style.backgroundColor=`red`;
                 jogo = false;
 
             }

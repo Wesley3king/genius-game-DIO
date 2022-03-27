@@ -31,6 +31,8 @@ align-items: center;
 .pre_start{
     width: 70px;
     height: 70px;
+    display: inline;
+    margin: 10px;
 }
 #placar{
     height: 0px;
@@ -58,9 +60,11 @@ grid-area: three;
 #painel{
     width: 90%;
     height: 100px;
-    display: block;
     margin: auto;
     text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 @keyframes ending {
     0%{
@@ -70,6 +74,26 @@ grid-area: three;
         opacity: 0;
     }
 }
+@keyframes not {
+    0%{
+        background-color: white;
+    }
+    50%{
+        background-color: red;
+    }
+    100%{
+        background-color: white;
+    }
+}
 .itens{
     display: inline-block;
+    margin: 10px;
+}
+.resultado{
+    position: fixed;
+    width: 100%;
+    height: 10vh;
+    margin-top: 40%;
+    text-align: center;
+    font: normal normal 2em times,serif;
 }
