@@ -124,12 +124,13 @@ function leitor (padrao=undefined, autorizção = null) {
                indicador.innerText = `pontos : ${pontos}`;
                console.log('-------VITÓRIA-----'+pontos);
                resultado.style.display="block";
-               resultado.innerText = `VITÓRIA`;
+               resultado.innerHTML = `VITÓRIA       <small>próximo nivel</small>`;
                resultado.style.backgroundColor=`lime`;
                area.forEach(item => item.style.backgroundColor=`gold`);
                jogo = false;
                //next level
-               window.document.querySelector(".pre_start").style.display="block";
+               //window.document.querySelector(".pre_start").style.display="block";
+               resultado.setAttribute('onclick','start()');
                //start();
            }
        }else{
@@ -142,7 +143,8 @@ function leitor (padrao=undefined, autorizção = null) {
                 area.forEach(item => item.style.backgroundColor=`orange`);
                 hearts.innerText  = `you lose!`;
                 resultado.style.display="block";
-                resultado.innerText = `DERROTA`;
+                resultado.innerHTML = `DERROTA      <small>tentar novamente</small>`;
+                resultado.setAttribute('onclick','restart()');
                 resultado.style.backgroundColor=`red`;
                 jogo = false;
 
@@ -151,7 +153,9 @@ function leitor (padrao=undefined, autorizção = null) {
        }
     }
 }
-
+function restart () {
+    location.reload();
+}
 function sensor (tp) {
     switch (tp) {
         case 1 : 
